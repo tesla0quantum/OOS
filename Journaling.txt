@@ -1,0 +1,23 @@
+1.) Last 20 records in journal: journalctl -n 20
+2.)  Zapisi koji se u trenutku koristenja naredbe zapisuju u journal: journalctl -f
+3.)  Filtriranje poruka iz journala koje imaju priority level emerg i vise: journalctl -p 0
+4.)  Svi zapisi nastali od zadnjeg boot-a: journalctl -b -0
+5.)  Zadnjih 20 zapisa koje je napravio UID 0: journalctl -n 20 _UID=0
+6.)  Zapisi koje je napravio GID 0: journalctl _GID=0
+7.)  Zapisi koje je napravio SystemD unit cron: journalctl -u _SYSTEMD_UNIT=cron
+8.)  Zapisi nastali nakon 01.03.2016: journalctl --since "2016-03-01"
+9.)  Zapisi nastali nakon 01.03.2016, a prije 20.05.2016 u 10:00 sati ujutro: journalctl --since "2016-03-01" --until "2016-05-20 10:00"
+10.) Svi zapisi uz konvertiranje timestamp-a u UTC vrem. zonu: journalctl -a --utc
+11.) Svi zapisi nastali od jucer: journalctl --since "yesterday"
+12.) Zapisi nastali danas od 09:00 do prije jedan sat od trenutnog vremena: journalctl --since "09:00" --until "1 hour ago"
+13.) Svi zapisi koje je napravio servis httpd za vrijeme danasnjeg dana: journalctl -u httpd.service --since "today"
+14.) Zapisi koje je napravio servis httpd i servis crond od 01.03.2016 do danas: journalctl -u httpd.service -u crond.service --since "2016-03-01"
+15.) Svi journal zapisi u verbose formatu u datoteku: journalctl -o verbose > /tmp/sve.txt
+16.) Podatak o trenutnom zauzecu diska: journalctl --disk-usage
+17.) Smanjivanje journala tako da u njemu ostanu poruke starosti do tjedan dana: journalctl --vacuum-time="1 week"
+18.) Zadnjih 10 zapisa koje je napravio servis auditd obrnutim redom: journalctl -u auditd.service -n 10 -r
+19.) Zapisi koje je napravio servis bluetoothd po PID-u: journalctl _PID=`pidof bluetoothd`
+
+https://www.loggly.com/ultimate-guide/using-journalctl/
+https://wiki.archlinux.org/index.php/systemd
+https://bbs.archlinux.org/viewtopic.php?id=172399

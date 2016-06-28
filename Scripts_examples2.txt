@@ -1,0 +1,104 @@
+ps -aux|egrep root
+
+-----------------------------------------------------------------------
+
+#!/bin/bash
+
+datoteka="./datoteka.txt"
+
+
+if [ -e $datoteka ]
+
+then
+ 
+	if [ -w $datoteka ]
+
+	then
+ 
+		echo "Datoteka postoji i moguce je upisivati u nju"
+
+	else
+ 
+		echo "Datoteka postoji i nije moguce upisivati u nju"
+
+	fi
+
+else
+
+echo "Datoteka ne postoji"
+
+fi
+
+
+----------------------------------------------------------------------
+
+#!/bin/bash
+
+backup_file="./backup.tar.gz"
+
+backup_directory="/etc"
+
+tar cfz $backup_file $backup_directory
+
+
+-----------------------------------------------------------------------
+
+#!/bin/bash
+
+directory="/home/direktorij/"
+
+for i in $( ls $directory)
+
+	do
+
+		chown root:root $directory$i
+
+done
+ 
+
+------------------------------------------------------------------------
+
+#!/bin/bash
+
+# Password file
+
+password_file="/etc/passwd"
+
+# Varijabla dobivena query-em putem grepa
+
+grep_provjera=`grep -E "^$1:" $password_file`
+
+
+# Ispis varijable grep_varijabla
+
+echo $grep_provjera
+
+
+if [ -z $grep_provjera ]
+
+then
+
+	echo "Ne postoji"
+
+else
+
+	echo "Postoji"
+
+fi
+
+
+-----------------------------------------------------------------------------------
+grep -C 2 'cat' /usr/share/dict/words
+grep -C 2 ^cat$ /usr/share/dict/words
+grep cat /usr/share/dict/words | wc
+grep cat /usr/share/dict/words | wc -l
+grep -c 'cat' /usr/share/dict/words
+grep -n cap words | grep cat
+grep -n ^catalog$ /usr/share/dict/words
+grep 't[aeiuo]sh' /usr/share/dict/words
+grep -E '^a[bnt]omi(nabl|nat|z)*e$' /usr/share/dict/words
+grep -E '^a[bnt]omi(nable$|nate$|ze$|e$)' /usr/share/dict/words
+grep -E 't[aeiuo]sh$' /usr/share/dict/words | wc -l
+grep -c -E 't[aeiou]sh$' /usr/share/dict/words
+grep -c -E '^\w{14}$' /usr/share/dict/words
+
