@@ -1,0 +1,23 @@
+LAMP on CentOS 7
+===========================================
+yum install httpd* mariadb* php php-mysql
+
+nano /etc/hosts
+192.168.0.X	www.domain.com
+
+nano /etc/httpd/conf/httpd.conf
+DirectoryIndex	index.html --> DirectoryIndex	index.php index.html
+
+cp ~/Downloads/Joomla...xxx.zip /var/www/html/
+cd /var/www/html/
+unzip Joomla...xxx.zip
+chown apache installation/
+cd ..
+chown apache html/
+
+systemctl start httpd
+systemctl start mariadb
+
+mysql_secure_installation
+
+Firefox --> www.domain.com

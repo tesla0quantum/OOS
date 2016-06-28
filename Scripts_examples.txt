@@ -1,0 +1,344 @@
+;---1
+#!/bin/bash
+
+# definirajmo jednu varijablu tekstualnog tipa (string)
+
+STRING="Dobar dan, ja sam prva skripta studenata VSzPR"
+
+# ispisimo varijablu STRING na ekran uz pomoc komande echo
+
+echo $STRING
+
+
+
+;---2
+#!/bin/bash
+
+# tar cfvz ime-datoteke.tar.gz . je komanda kojom cemo
+
+# u jednoj komandi tarati i gzipati sadrzaj trenutnog
+
+# direktorija (.) u datoteku ime-datoteke.tar.gz
+
+tar cfz trenutnidirektorij.tar.gz .
+
+;---3
+#!/bin/bash
+
+# u varijablu DATOTEKA pospremiti cemo ime datoteke u koju cemo
+
+# spremiti backup, ali cemo prije ekstenzije .tar.gz dodati i
+
+# podatak o datumu
+
+DATOTEKA=trenutnidirektorij_$(date +%Y%m%d).tar.gz
+
+tar cfz $DATOTEKA .
+
+
+;---4
+#!/bin/bash
+
+# Definirajmo globalnu varijablu
+
+# Ova varijabla je globalna i "vidi se" u cijeloj skripti
+
+VARIJABLA1="Globalna varijabla"
+
+function funkcija {
+
+# Definirajmo lokalnu varijablu
+
+# Ova varijabla je vidljiva samo unutar funkcije
+
+# shell komanda sleep pauzira izvodjenje na X sekundi
+
+local VARIJABLA1="Lokalna varijabla"
+
+sleep 2
+echo $VARIJABLA1
+
+}
+
+sleep 2
+
+echo $VARIJABLA1
+
+funkcija
+
+# Primjetite da se globalna varijabla nije promijenila
+
+# rijec "local" je rezervirana rijec
+
+sleep 2
+
+echo $VARIJABLA1
+
+
+;---5
+#!/bin/bash
+
+# koristimo predefinirani broj argumenata
+
+# ispisujemo argumente u shell
+
+echo $1 $2 $3
+
+# iskoristimo varijablu $# da bismo ispisali
+
+# broj argumenata koje smo predali skripti
+
+echo Number of arguments passed: $# 
+
+
+;---6
+#!/bin/bash
+
+echo -e "Dobar dan, upisite jednu rijec: \c "
+
+read  word
+
+echo "Rijec koju ste upisali je: $word"
+
+echo -e "Sada upisite dvije rijeci "
+
+read word1 word2
+
+echo "Upisali ste rijeci: \"$word1\" \"$word2\""
+
+echo -e "Sto mislite o bash scriptiranju? "
+
+# read komanda posprema odgovor u varijablu $REPLY
+
+read
+
+echo "Odgovorili ste $REPLY, i ja mislim isto!:-) "
+
+echo -e "Koje su vase tri omiljene boje? "
+
+# read sa -a tjera read komandu da cita niz
+
+read -a colours
+
+echo "Moje omiljene boje su takodjer ${colours[0]}, ${colours[1]} i ${colours[2]}:-)" 
+
+
+
+;---7
+#!/bin/bash
+
+# definirajmo niz sa cetiri elementa
+
+ARRAY=( 'Debian Linux' 'Redhat Linux' Ubuntu Linux )
+
+# prebrojimo koliko clanova niza postoji
+
+ELEMENTI=${#ARRAY[@]}
+
+
+
+# ispisimo svaki element niza sa for loopom
+
+for (( i=0;i<$ELEMENTI;i++)); do
+
+    echo ${ARRAY[${i}]}
+
+done 
+
+
+
+;---8
+#!/bin/bash
+
+directory="./skriptiranje"
+
+
+# provjerimo da li direktorij postoji
+
+if [ -d $directory ]; then
+
+	echo "Directory postoji"
+
+else
+ 
+	echo "Direktorij ne postoji"
+
+fi 
+
+
+
+;---9
+#!/bin/bash
+
+echo -e "Upisite dva broja "
+
+read broj1 broj2
+
+echo "Upisali ste brojeve $broj1 i $broj2"
+
+# usporedimo ove brojeve
+
+if [ $broj1 -eq $broj2 ]; then
+
+	echo "Brojevi su jednaki"
+
+else
+ 
+	echo "Brojevi nisu jednaki"
+
+fi 
+
+
+
+;---10
+#!/bin/bash
+
+echo -e "Upisite dva broja "
+
+read broj1 broj2
+
+echo "Upisali ste brojeve $broj1 i $broj2"
+
+NUM2=1
+
+if   [ $broj1 -eq $broj2 ]; then
+
+	echo "Brojevi su isti"
+
+elif [ $broj1 -gt $broj2 ]; then
+
+	echo "Prvi broj je veci od drugog broja"
+
+else
+ 
+	echo "Drugi broj je veci od prvog broja"
+
+fi
+
+
+
+;---11
+#!/bin/bash
+
+# deklarirajmo string S1
+
+S1="Bash"
+
+# deklarirajmo string S2
+
+S2="Scripting"
+
+if [ $S1 = $S2 ]; then
+
+	echo "Stringovi su isti"
+
+else
+ 
+	echo "Stringovi nisu isti"
+
+fi 
+
+
+
+;---12
+#!/bin/bash
+
+file="./file.txt"
+
+if [ -e $file ]; then
+
+	echo "Datoteka postoji"
+
+else
+ 
+	echo "Datoteka ne postoji"
+
+fi 
+
+
+
+;---13
+#!/bin/bash
+
+
+# bash for loop
+
+for f in $( ls /var/ ); do
+
+	echo $f
+
+done
+
+
+
+;---14
+#!/bin/bash
+
+echo "Koji je vas omiljeni programski/scripting jezik?"
+
+echo "1) bash"
+
+echo "2) perl"
+
+echo "3) phyton"
+
+echo "4) c++"
+
+echo "5) Ne znam!"
+
+read case;
+
+# jednostavna case struktura
+
+case $case in
+
+    1) echo "Odabrali ste bash";;
+
+    2) echo "Odabrali ste perl";;
+
+    3) echo "Odabrali ste phyton";;
+
+    4) echo "Odabrali ste c++";;
+
+    5) exit
+
+esac 
+
+
+;---15
+# Ova skripta mijenja argument sa kojim ju pozivate
+# ako ju pozoveze sa ./skripta15.sh centos, vraca vam "RedHat"
+# ako ju pozoveze sa ./skripta15.sh redhat, vraca vam "CentOS"
+
+arg="$1"
+
+usage(){
+	echo "Uputa za koristenje: $0 redhat|centos"
+}
+
+case $arg in
+	redhat) echo "Napisali ste $arg i to prenosimo u $0 ali izlaz je CentOS";;
+	centos) echo "Napisali ste $arg i to prenosimo u $0 ali izlaz je RedHat";;
+	*) usage
+esac
+
+;---16
+#!/bin/bash
+# skripta pretrazuje korisnicka imena u /etc/passwd
+# poziva se sa ./skripta16.sh ime_korisnika
+# ukoliko korisnik postoji na sustavu, podaci o njemu su zapisani u datoteci /etc/passwd
+# i skripta vraca da korisnik postoji
+# ukoliko korisnik ne postoji, nema zapisa o njemu u /etc/passwd skripta vraca da korisnik
+# ne postoji
+#---------------------------
+# prvo uhvatimo argument iz linije
+
+user=$1
+passwdfile=/etc/passwd
+
+[ $# -eq 0 ] && { echo "Uputa za koristenje: $0 username"; exit 1; }
+grep "^$user" $passwdfile >/dev/null
+
+retval=$?
+
+[ $retval -eq 0 ] && echo "$user pronadjen :-)" || echo "$user nije pronadjen :-("

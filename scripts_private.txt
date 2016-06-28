@@ -1,0 +1,42 @@
+3.)
+#!/bin/bash
+
+
+IME=$1-`hostname`-`date +%Y%m%d`.tar
+
+
+echo $IME
+
+
+for i in *.txt
+
+do
+
+	echo "Backupiram $i"
+
+	tar -rf $IME $i
+
+done
+
+gzip $IME
+
+
+4.1	egrep '[[:alpha:]]+yoda' /usr/share/dict/words
+
+4.2	egrep '\w+yoda' /usr/share/dict/words
+
+
+5.1	egrep '([^0-9]|^)[0-9]{3}([^0-9]|$)' pero
+
+5.2	grep -P '(\D|^)\d{3}(\D|$)' /usr/share/dict/words
+	(na centosu 7: 5.2 mora biti pozvan s -P, nisam siguran za C6)
+
+
+6.1	egrep '^[[:alpha:]]{12,15}$' /usr/share/dict/words
+
+6.2	egrep '^\w{12,15}$' /usr/share/dict/words
+
+
+7.1	egrep '^((ba|du|fu)nk|apple)$' /usr/share/dict/words
+
+7.2	egrep '^((ba|[df]u)nk|apple)$' /usr/share/dict/words

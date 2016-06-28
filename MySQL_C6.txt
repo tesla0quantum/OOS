@@ -1,0 +1,103 @@
+Install MySQL Server
+=================================
+yum install mysql-server
+service mysqld restart
+
+mysql_secure_installation
+
+Work with MySQL Database
+==================================
+mysql -u root -p
+
+create DATABASE mydatabase;
+use mydatabase;
+CREATE TABLE mytable (id INT, name VARCHAR(20), email VARCHAR(20));
+show tables;
+drop TABLE mytable;
+drop database mydatabase;
+
+Operations:
+SELECT
+DROP
+CREATE
+INSERT
+DELETE
+
+Adding User in MySQL
+====================
+mysql -u root -p
+
+primjer1:
+----------------------------
+use mysql
+INSERT INTO user (Host,User,Password) VALUES('%','student',PASSWORD('student'));
+flush privileges;
+grant usage on *.* to student@localhost identified by 'student';
+grant all privileges on *.* to student@localhost;
+flush privileges;
+
+primjer2:
+-----------------------------
+use mysql
+INSERT INTO user (Host,User,Password) VALUES('%','korisnik',PASSWORD('korisnik123'));
+flush privileges;
+show grants for 'korisnik'@'localhost';
+grant SELECT,INSERT,UPDATE,DELETE on *.* to 'korisnik'@'localhost';
+grant usage on *.* to korisnik@localhost identified by 'korisnik';
+show grants for 'korisnik'@'localhost';
+
+Deleting User from MySQL Database
+=================================
+use mysql
+delete from user where user='username';
+flush privileges;
+
+Revoking privileges
+===================================
+use mysql
+revoke all privileges on *.* from 'korisnik'@'localhost';
+grant SELECT,INSERT,UPDATE,DELETE on database to 'korisnik'@'localhost';
+flush privileges;
+
+Backup & Restore MySQL Database
+===================================
+Backup
+-------
+mysqldump -u root -p mydatabase > mydatabase.sql
+
+Restore
+-------
+mysql -u root -p
+create DATABASE mydatabase2;
+exit
+mysqldump -u root -p mydatabase2 < mydatabase.sql
+
+Backup multiple databases
+-------------------------
+mysqldump -u root -p --databases database1 database2 > two_bases.sql
+
+mysqldump -u root -pt --all-databases > all_databases.sql
+
+Verification and Repair of tables
+=================================
+CHECK TABLE table_name;
+REPAIR TABLE table_name;
+
+Check all databases
+-------------------
+mysqlcheck --all-databases -u root -p
+
+Installation of phpMyAdmin interface
+====================================
+cd ~/Downloads
+rpm -ivh epel.rpm
+
+yum -y install httpd* mysql-server php php-mysql phpmyadmin
+
+nano /etc/httpd/conf.d/phpMyAdmin.conf
+Require IP 127.0.0.1 --> Require IP 192.168.0.X
+
+nano /etc/hosts
+FQDN 192.168.0.X
+
+http://localhost/phpMyAdmin

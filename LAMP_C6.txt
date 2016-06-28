@@ -1,0 +1,3 @@
+LAMP installation
+===================================
+yum install httpd* mysql* php php-mysql

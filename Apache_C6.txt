@@ -1,0 +1,51 @@
+SE Linux
+======================================================
+su getenforce
+ -> ako vrati "Enforcing" potrebno je izvršiti naredbu
+su setenforce 0
+
+Instalacija Apache poslužitelja zajedno sa paketom 'http-manual'
+================================================================
+yum install httpd httpd-manual
+service httpd start
+
+Sistemska WEB stranica: '/var/www/html' --> DocumentRoot
+================================================================
+Direktiva pretraživanja datoteka koje su definirane kroz DocumentRoot
+podešena je na sljedeæi naèin: DirectoryIndex index.html index.html.var
+
+Konfiguracijska datoteka: '/etc/httpd/conf/httpd.conf
+service httpd restart (reload)
+
+Provjera httpd.conf datoteke radi se sa 'apachectl'
+
+Korisnièka stranica: UserDir (defaultno je podešena na public_html) /home/student/public_html
+=============================================================================================
+UserDir Disabled
+UserDir enabled <user>
+#UserDir public_html
+UserDir public_html
+
+VirtualHost
+=============================
+1.) DNS zapisi
+/etc/hosts
+
+192.168.1.1 www.nesto0.com
+192.168.1.1 www.nesto1.com
+
+2.) httpd.conf
+#NameVirtualHost --> NameVirtualHost
+
+<VirtualHost *:80>
+ServerAdmin root@www.nesto0.com
+DocumentRoot /var/www/html/nesto0
+ServerName www.nesto0.com
+ErrorLog logs/nesto0.com-error_log
+CustomLog logs/nesto0.com-access_log common
+</VirtualHost>
+
+mkdir /var/www/html/nesto0
+
+service httpd restart
+
