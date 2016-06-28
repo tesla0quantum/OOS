@@ -1,0 +1,39 @@
+Konfiguriranje zapisivanja poruka kernela u datoteku /var/log/kernel
+
+nano /etc/rsyslog.conf
+
+#### RULES ####
+kern.*				/var/log/kernel
+----------------------------------------------------------------------------------------------------------------------------------------
+Rotacija logova za "/var/log/kernel", izvrsava se svaki tjedan, prvi tjedan se nakon rotacije ne komprimira nego tek nakon prvog tjedna,
+rotacija se izvrsava 10 tjedana i nakon rotacije se servisu "klogd" posalje signal HUP:
+
+nano /etc/logrotate.conf
+
+/var/log/kernel {
+	missingok
+	weekly
+	rotate 10
+	delaycompress
+	compress
+	postrotate
+		kill -HUP `pidof klogd`
+	endscript
+}
+------------------------------------------------------------------------------------------------
+Periodicko izvrsavanje za korisnika "user" svake pete minute od 10 do 12 sati,
+a naredba koja se izvrsava je /bin/logger "Izvrsio sam naredbu":
+
+crontab -e -u user
+
+p1 - minute
+p2 - sati
+p3 - dani u mjesecu
+p4 - mjeseci
+p5 - dan u tjednu
+p6 - naredba
+
+*/5 10-12 * * * /bin/logger "Izvrsio sam naredbu"
+------------------------------------------------------------------------------------------------
+Definicije periodicnog izvrsavanja zadataka za korisnike:
+/var/spool/cron
